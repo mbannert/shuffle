@@ -11,3 +11,23 @@ create_group <- function(x, group_size = 4){
   names(out) <- m_g
   out
 }
+
+
+#' @param x character vector of student names.
+#' @param group_size integer from 1 to 5.
+shuffle_cards <- function(x, group_size = 4){
+  e <- new.env()
+  e$av <- nms
+  no_grps <- ceiling(length(x) / group_size)
+  groups <- list()
+  for (i in 1:no_grps){
+    g <- create_group(e$av, group_size)
+    groups[[i]] <- g
+    e$av <- e$av[!e$av %in% g]
+  }
+  names(groups) <- c("Aces", "Kings", "Queens","Jacks",
+                     "Tens","Nines","Eights","Sevens","Sixes",
+                     "Fives","Fours","Threes","Twos","Ones")[1:no_grps]
+  groups
+}
+
